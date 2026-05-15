@@ -6,6 +6,10 @@ use App\Modules\Core\Models\Branch;
 
 uses(RefreshDatabase::class);
 
+beforeEach(function () {
+    \Laravel\Sanctum\Sanctum::actingAs(\App\Models\User::factory()->create());
+});
+
 it('can fetch all branches', function () {
     $company = Company::factory()->create();
     Branch::factory()->count(3)->create(['company_id' => $company->id]);

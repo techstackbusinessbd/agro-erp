@@ -4,6 +4,10 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
+beforeEach(function () {
+    \Laravel\Sanctum\Sanctum::actingAs(\App\Models\User::factory()->create());
+});
+
 it('can create a company via api', function () {
     $payload = [
         'name'     => 'Standard Group Test',

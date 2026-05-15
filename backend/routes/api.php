@@ -10,7 +10,10 @@
 | এবং 'api' মিডলওয়্যার যুক্ত করে দেয়।
 */
 
-// ১. Core Module
+// ১. Auth Module
+require base_path('app/Modules/Auth/routes/api.php');
+
+// ২. Core Module
 require base_path('app/Modules/Core/routes/api.php');
 
 // ২. HR Module (ভবিষ্যতের জন্য উদাহরণ)

@@ -4,23 +4,32 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @method static void creating(\Closure|string|array $callback)
+ * @method static void updating(\Closure|string|array $callback)
+ * @mixin \Illuminate\Database\Eloquent\Model
+ */
 trait HasAuditFields
 {
     protected static function bootHasAuditFields()
     {
-        // যখনই নতুন কোনো রেকর্ড তৈরি হবে
         static::creating(function ($model) {
+            /** @var \Illuminate\Database\Eloquent\Model $model */
             if (Auth::check()) {
-                $model->created_by = $model->created_by ?? Auth::id();
-                // এন্টারপ্রাইজ লেভেলে কোম্পানি আইডি ট্র্যাকিং করা খুব জরুরি
-                $model->company_id = $model->company_id ?? Auth::user()->company_id ?? null;
+                $model->setAttribute('created_by', $model->getAttribute('created_by') ?? Auth::id());
+                
+                if (\Illuminate\Support\Facades\Schema::hasColumn($model->getTable(), 'company_id')) {
+                    /** @var \App\Models\User $user */
+                    $user = Auth::user();
+                    $model->setAttribute('company_id', $model->getAttribute('company_id') ?? $user->company_id ?? null);
+                }
             }
         });
 
-        // যখনই কোনো রেকর্ড আপডেট হবে
         static::updating(function ($model) {
+            /** @var \Illuminate\Database\Eloquent\Model $model */
             if (Auth::check()) {
-                $model->updated_by = Auth::id();
+                $model->setAttribute('updated_by', Auth::id());
             }
         });
     }
