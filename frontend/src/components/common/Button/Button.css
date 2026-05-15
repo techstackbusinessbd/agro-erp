@@ -1,0 +1,62 @@
+.material-btn {
+    position: relative;
+    overflow: hidden;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12);
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 64px;
+}
+
+.material-btn.full-width {
+    width: 100%;
+}
+
+.material-btn:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
+}
+
+.material-btn:disabled {
+    color: rgba(255, 255, 255, 0.3);
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.12);
+    cursor: default;
+}
+
+/* Ripple Effect */
+span.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Material Spinner for Loading State */
+.material-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}

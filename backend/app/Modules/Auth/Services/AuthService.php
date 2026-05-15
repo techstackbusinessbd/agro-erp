@@ -28,7 +28,10 @@ class AuthService
             ]);
         }
 
-        // Generate Sanctum Token
+        // Log the user in to the web session for Sanctum SPA
+        \Illuminate\Support\Facades\Auth::guard('web')->login($user);
+
+        // Optional: Generate Sanctum Token if you need API tokens for external apps
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return [
@@ -38,10 +41,16 @@ class AuthService
     }
 
     /**
-     * Logout user by revoking current token
+     * Logout user by clearing session and revoking token
      */
     public function logout(User $user): void
     {
-        $user->currentAccessToken()->delete();
+        if ($user->currentAccessToken()) {
+            $user->currentAccessToken()->delete();
+        }
+
+        \Illuminate\Support\Facades\Auth::guard('web')->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
     }
 }

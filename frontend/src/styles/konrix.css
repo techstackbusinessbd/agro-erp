@@ -1,0 +1,59 @@
+/* Custom components for Konrix Design System */
+
+@layer components {
+  /* Premium Card Style */
+  .card {
+    @apply bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden transition-all duration-300;
+  }
+  
+  .card:hover {
+    @apply shadow-md;
+  }
+
+  .card-header {
+    @apply px-5 py-4 border-b border-gray-50 flex items-center justify-between;
+  }
+
+  .card-title {
+    @apply text-[15px] font-bold text-gray-700;
+  }
+
+  .card-body {
+    @apply p-5;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider;
+  }
+
+  .badge-primary { @apply bg-primary-50 text-primary-600; }
+  .badge-success { @apply bg-emerald-50 text-emerald-600; }
+  .badge-danger { @apply bg-rose-50 text-rose-600; }
+  .badge-warning { @apply bg-amber-50 text-amber-600; }
+  .badge-info { @apply bg-sky-50 text-sky-600; }
+
+  /* Utility classes from screenshot */
+  .bg-warning-100 { @apply bg-[#fef3c7]; }
+  .text-warning-700 { @apply text-[#b45309]; }
+  .border-warning-100 { @apply border-[#fde68a]; }
+
+  /* Hover effects */
+  .hover-bg-gray-50:hover {
+    @apply bg-gray-50;
+  }
+}
+
+/* Custom transitions */
+.transition-sidebar {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar hide utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

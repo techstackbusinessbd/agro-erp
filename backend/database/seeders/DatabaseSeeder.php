@@ -19,11 +19,13 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
         ]);
         
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $superAdmin = User::factory()->create([
+            'name' => 'Super Admin',
+            'username' => 'superadmin',
+            'email' => 'admin@agroerp.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('secret123'),
         ]);
+
+        $superAdmin->assignRole(\App\Enums\UserRole::SUPER_ADMIN->value);
     }
 }

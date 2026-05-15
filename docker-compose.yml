@@ -64,6 +64,20 @@ services:
     networks:
       - agro-network
 
+  # React Frontend (Vite)
+  frontend:
+    image: node:20-alpine
+    container_name: agro-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev"
+    networks:
+      - agro-network
+
 networks:
   agro-network:
     driver: bridge
