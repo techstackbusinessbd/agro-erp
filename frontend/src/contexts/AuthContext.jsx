@@ -42,8 +42,16 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const hasPermission = (permission) => {
+        return user?.all_permissions?.includes(permission) || user?.roles?.includes('Super Admin');
+    };
+
+    const hasRole = (role) => {
+        return user?.roles?.includes(role) || user?.roles?.includes('Super Admin');
+    };
+
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout }}>
+        <AuthContext.Provider value={{ user, loading, login, logout, hasPermission, hasRole }}>
             {children}
         </AuthContext.Provider>
     );

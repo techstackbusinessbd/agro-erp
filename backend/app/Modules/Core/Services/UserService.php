@@ -14,15 +14,17 @@ class UserService
     {
     }
 
-    public function getAll(): Collection
+    public function getAll(array $params = [])
     {
-        return $this->userRepository->all();
+        $perPage = $params['per_page'] ?? 10;
+        $search = $params['search'] ?? null;
+        return $this->userRepository->paginate($perPage, $search);
     }
 
     public function store(array $data): User
     {
-        if (isset($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
+        if (isset($data['role']) && $data['role'] === 'Super Admin') {
+            abort(403, 'Cannot create another Super Admin user.');
         }
 
         return DB::transaction(function () use ($data) {
@@ -41,8 +43,26 @@ class UserService
 
     public function update(string $id, array $data): User
     {
-        if (isset($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
+        $user = $this->userRepository->find($id);
+        if (!$user) {
+            abort(404, 'User not found');
+        }
+
+        // Prevent modification of system superadmin
+        if ($user->username === 'superadmin') {
+            // Allow update if it's not changing vital fields, but usually better to block all for simplicity
+            // or just block status/role/username changes.
+            // For now, let's block everything for superadmin to follow "cannot be edited/deleted/disabled"
+            abort(403, 'System Super Admin cannot be modified.');
+        }
+
+        // Remove password from data if it's empty to avoid overwriting with null
+        if (empty($data['password'])) {
+            unset($data['password']);
+        }
+
+        if (isset($data['role']) && $data['role'] === 'Super Admin' && $user->username !== 'superadmin') {
+            abort(403, 'Cannot assign Super Admin role to this user.');
         }
 
         return DB::transaction(function () use ($id, $data) {
@@ -53,8 +73,26 @@ class UserService
 
     public function destroy(string $id): bool
     {
+        $user = $this->userRepository->find($id);
+        if ($user && $user->username === 'superadmin') {
+            abort(403, 'System Super Admin cannot be deleted.');
+        }
+
         return DB::transaction(function () use ($id) {
             return $this->userRepository->delete($id);
+        });
+    }
+
+    public function syncPermissions(string $id, array $permissions): User
+    {
+        $user = $this->userRepository->find($id);
+        if (!$user) {
+            abort(404, 'User not found');
+        }
+
+        return DB::transaction(function () use ($user, $permissions) {
+            $user->syncPermissions($permissions);
+            return $user;
         });
     }
 }

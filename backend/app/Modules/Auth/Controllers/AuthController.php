@@ -8,6 +8,7 @@ use App\Modules\Auth\Services\AuthService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Modules\Core\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -48,8 +49,11 @@ class AuthController extends Controller
      */
     public function me(Request $request): JsonResponse
     {
+        $user = $request->user();
+        $user->load(['company', 'branch']);
+        
         return $this->successResponse(
-            $request->user()->load(['company', 'branch']),
+            new UserResource($user),
             'User profile retrieved successfully.'
         );
     }

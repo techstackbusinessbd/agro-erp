@@ -19,6 +19,20 @@ class CompanyController extends Controller
     }
 
     /**
+     * Get the global application settings.
+     */
+    public function appSettings(): JsonResponse
+    {
+        $company = \App\Modules\Core\Models\Company::where('status', \App\Enums\GeneralStatus::ACTIVE->value)->first();
+
+        if (!$company) {
+            return $this->errorResponse('App settings not found.', 404);
+        }
+
+        return $this->successResponse(new CompanyResource($company), 'App settings retrieved successfully.');
+    }
+
+    /**
      * Display a listing of the companies.
      */
     public function index(): JsonResponse

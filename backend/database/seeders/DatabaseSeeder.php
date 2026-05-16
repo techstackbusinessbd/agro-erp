@@ -3,29 +3,30 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         $this->call([
-            RolesAndPermissionsSeeder::class,
-        ]);
-        
-        $superAdmin = User::factory()->create([
-            'name' => 'Super Admin',
-            'username' => 'superadmin',
-            'email' => 'admin@agroerp.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('secret123'),
+            CompanySeeder::class,
+            PermissionSeeder::class,
+            MenuSeeder::class,
         ]);
 
-        $superAdmin->assignRole(\App\Enums\UserRole::SUPER_ADMIN->value);
+        // Create initial Super Admin if not exists (PermissionSeeder already handles one but let's be sure)
+        $admin = User::firstOrCreate(
+            ['username' => 'superadmin'],
+            [
+                'name' => 'Abdul Khaled',
+                'email' => 'superadmin@agroerp.com',
+                'password' => '12345678',
+                'is_active' => true,
+            ]
+        );
+
+        $admin->assignRole('Super Admin');
     }
 }

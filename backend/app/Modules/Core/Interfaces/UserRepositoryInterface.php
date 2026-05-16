@@ -8,4 +8,5 @@ interface UserRepositoryInterface extends EloquentRepositoryInterface
 {
     public function find(string $id): ?User;
     public function create(array $data): User;
+    public function paginate(int $perPage = 10, ?string $search = null);
 }

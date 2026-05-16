@@ -7,6 +7,11 @@ import AdminLayout from '../layouts/AdminLayout/AdminLayout';
 
 import DashboardOverview from '../features/dashboard/pages/DashboardOverview';
 import ProfilePage from '../features/users/pages/ProfilePage';
+import UserListPage from '../features/users/pages/UserListPage';
+import RoleListPage from '../features/users/pages/RoleListPage';
+import PermissionListPage from '../features/users/pages/PermissionListPage';
+
+import UnauthorizedPage from '../components/common/UnauthorizedPage';
 
 export default function AppRoutes() {
     return (
@@ -17,15 +22,32 @@ export default function AppRoutes() {
             <Route element={<GuestRoute />}>
                 <Route path="/login" element={<LoginPage />} />
             </Route>
-
+ 
             {/* Protected Routes (Admin Layout) */}
             <Route element={<ProtectedRoute />}>
                 <Route element={<AdminLayout />}>
-                    <Route path="/dashboard" element={<DashboardOverview />} />
+                    <Route element={<ProtectedRoute permission="dashboard.view" />}>
+                        <Route path="/dashboard" element={<DashboardOverview />} />
+                    </Route>
                     <Route path="/profile" element={<ProfilePage />} />
-                    {/* Add more routes like /users, /branches here */}
+                    
+                    {/* Permission Based Routes */}
+                    <Route element={<ProtectedRoute permission="users.view" />}>
+                        <Route path="/users" element={<UserListPage />} />
+                    </Route>
+                    
+                    <Route element={<ProtectedRoute permission="roles.view" />}>
+                        <Route path="/roles" element={<RoleListPage />} />
+                    </Route>
+
+                    <Route element={<ProtectedRoute permission="permission.manage" />}>
+                        <Route path="/permissions" element={<PermissionListPage />} />
+                    </Route>
                 </Route>
             </Route>
+
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
     );
 }

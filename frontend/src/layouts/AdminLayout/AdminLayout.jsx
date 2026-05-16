@@ -32,7 +32,7 @@ export default function AdminLayout() {
     };
 
     return (
-        <div className="flex min-h-screen bg-[#f8f7fa]">
+        <div className="flex min-h-screen bg-[#f8f7fa] dark:bg-gray-950 transition-colors">
             {/* Sidebar Component */}
             <Sidebar isMini={isMiniSidebar} isMobileOpen={isMobileOpen} />
             
@@ -60,7 +60,7 @@ export default function AdminLayout() {
                 </div>
 
                 {/* Sticky Footer */}
-                <footer className="sticky bottom-0 z-20 px-8 py-4 bg-white/80 backdrop-blur-md border-t border-gray-100 text-sm text-gray-500 text-center md:text-left flex flex-col md:flex-row justify-between items-center shadow-[0_-2px_10px_rgba(0,0,0,0.03)]">
+                <footer className="sticky bottom-0 z-20 px-8 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400 text-center md:text-left flex flex-col md:flex-row justify-between items-center shadow-[0_-2px_10px_rgba(0,0,0,0.03)]">
                     <div>
                         © {new Date().getFullYear()} <span className="font-semibold text-primary-600">Agro ERP</span>. All rights reserved.
                     </div>

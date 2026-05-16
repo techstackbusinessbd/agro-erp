@@ -9,6 +9,8 @@ use App\Modules\Core\Requests\UpdateUserRequest;
 use App\Modules\Core\Resources\UserResource;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {
@@ -20,10 +22,10 @@ class UserController extends Controller
 
     public function index(): JsonResponse
     {
-        $users = $this->userService->getAll();
+        $users = $this->userService->getAll(request()->all());
 
         return $this->successResponse(
-            UserResource::collection($users),
+            UserResource::collection($users)->response()->getData(true),
             'Users retrieved successfully.'
         );
     }
@@ -68,4 +70,28 @@ class UserController extends Controller
             'User deleted successfully.'
         );
     }
+
+    public function getPermissions(string $id): JsonResponse
+    {
+        $user = $this->userService->show($id);
+        return $this->successResponse([
+            'direct_permissions' => $user->getPermissionNames(),
+            'all_permissions' => $user->getAllPermissions()->pluck('name'),
+        ], 'User permissions retrieved successfully.');
+    }
+
+    public function syncPermissions(Request $request, string $id): JsonResponse
+    {
+        $request->validate([
+            'permissions' => 'required|array'
+        ]);
+
+        $user = $this->userService->syncPermissions($id, $request->permissions);
+
+        return $this->successResponse(
+            new UserResource($user),
+            'User permissions synced successfully.'
+        );
+    }
 }
+
