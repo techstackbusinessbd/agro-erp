@@ -180,16 +180,16 @@ export default function UomListPage() {
   return (
     <div className="pb-10 min-h-screen space-y-8">
       {/* Premium Sticky Header with Integrated Search */}
-      <div className="sticky top-4 z-20 flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl p-6 rounded-md border border-gray-100/50 dark:border-gray-800/50 shadow-xl shadow-gray-500/5 transition-all mb-8">
+      <div className="sticky top-4 z-20 flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl p-6 rounded-md border border-gray-100/50 dark:border-gray-800/50 shadow-xl shadow-gray-500/5 transition-all mb-8">
         <div className="space-y-1 shrink-0">
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-1.5">
             <div className="w-8 h-8 rounded bg-primary-500/10 flex items-center justify-center">
-              <Scale className="w-5 h-5 text-primary-500" />
+              <Scale className="w-4.5 h-4.5 text-primary-500" />
             </div>
-            <span className="text-[10px] font-extrabold text-primary-500 uppercase tracking-[0.2em]">Master Data</span>
+            <span className="text-xs font-semibold text-primary-600 dark:text-primary-400 tracking-wider">Master Data Management</span>
           </div>
-          <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Units of Measurement</h1>
-          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest leading-none">Quantity & Metric Configurations</p>
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Units of Measurement</h1>
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Manage and configure physical metrics like Kg, Litre, Pcs, Bag etc.</p>
         </div>
 
         {/* Integrated Search Bar */}
@@ -199,24 +199,24 @@ export default function UomListPage() {
           </div>
           <input
             type="text"
-            placeholder="Search by unit name or code (e.g. kg, ltr)..."
+            placeholder="Search units by name or code (e.g. kg, ltr, bag)..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800 rounded-md text-xs font-bold outline-none focus:ring-4 focus:ring-primary-500/5 focus:border-primary-500 transition-all shadow-inner"
+            className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 rounded-md text-sm outline-none focus:ring-4 focus:ring-primary-500/5 focus:border-primary-500 transition-all"
           />
         </div>
 
         <div className="flex items-center gap-6 flex-shrink-0">
-          <div className="flex gap-6 pr-6 border-r border-gray-100 dark:border-gray-800">
+          <div className="flex gap-6 pr-6 border-r border-gray-200 dark:border-gray-800">
             <div className="text-right">
-              <p className="text-[11px] font-black text-gray-400 tracking-[0.2em] uppercase">Total Units</p>
-              <p className="text-2xl font-black text-gray-900 dark:text-white leading-none mt-1">{uoms.length}</p>
+              <p className="text-xs font-semibold text-gray-400 tracking-wider uppercase">Total Units</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white leading-none mt-1">{uoms.length}</p>
             </div>
           </div>
           {hasPermission("uoms.create") && (
             <button
               onClick={() => handleOpenModal()}
-              className="flex items-center gap-3 px-6 py-4 bg-primary-500 hover:bg-primary-600 text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-md shadow-2xl shadow-primary-500/20 transition-all active:scale-95 group"
+              className="flex items-center gap-2 px-5 py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-bold text-xs uppercase tracking-wider rounded-md shadow-lg shadow-primary-500/20 transition-all active:scale-95 group"
             >
               <Plus className="w-4 h-4 transition-transform group-hover:rotate-90" />
               Add Unit (UOM)
@@ -230,11 +230,11 @@ export default function UomListPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
-                <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Unit Name</th>
-                <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Unit Code</th>
-                <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Status</th>
-                <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] text-right">Actions</th>
+              <tr className="bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-800">
+                <th className="px-6 py-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Unit Name</th>
+                <th className="px-6 py-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Unit Code</th>
+                <th className="px-6 py-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
@@ -256,26 +256,26 @@ export default function UomListPage() {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded bg-primary-500/5 flex items-center justify-center">
-                          <Scale className="w-4 h-4 text-primary-500" />
+                          <Scale className="w-4.5 h-4.5 text-primary-500" />
                         </div>
                         <div>
-                          <p className="text-xs font-black text-gray-900 dark:text-white">{uom.name}</p>
+                          <p className="text-sm font-semibold text-gray-900 dark:text-white">{uom.name}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-[10px] font-mono font-bold bg-primary-500/10 text-primary-500 px-2.5 py-1 rounded">
+                      <span className="text-xs font-mono font-bold bg-primary-500/10 text-primary-600 dark:text-primary-400 px-2.5 py-1 rounded">
                         {uom.code}
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       {uom.is_active ? (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-500">
-                          <CheckCircle className="w-3 h-3" /> Active
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                          <CheckCircle className="w-3.5 h-3.5" /> Active
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider bg-red-500/10 text-red-500">
-                          <XCircle className="w-3 h-3" /> Inactive
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-500/10 text-red-600 dark:text-red-400">
+                          <XCircle className="w-3.5 h-3.5" /> Inactive
                         </span>
                       )}
                     </td>
@@ -319,19 +319,19 @@ export default function UomListPage() {
       {/* Slide-over/Modal Manager for Create/Edit */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-gray-900/60 dark:bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-md border border-gray-100 dark:border-gray-800 shadow-2xl transition-all overflow-hidden">
+          <div className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-md border border-gray-200 dark:border-gray-800 shadow-2xl transition-all overflow-hidden">
             {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded bg-primary-500/10 flex items-center justify-center">
                   <Scale className="w-4 h-4 text-primary-500" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-black text-gray-900 dark:text-white uppercase tracking-wider">
-                    {selectedUom ? "Modify Unit (UOM)" : "Register Unit (UOM)"}
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">
+                    {selectedUom ? "Edit Unit Details (UOM)" : "Create New Unit (UOM)"}
                   </h3>
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1">
-                    {selectedUom ? "Edit metric configuration" : "Create new metric configuration"}
+                  <p className="text-xs text-gray-400 mt-1">
+                    {selectedUom ? "Update the name, code, and status of this measurement unit." : "Fill in the details below to add a new unit of measurement."}
                   </p>
                 </div>
               </div>
@@ -342,38 +342,38 @@ export default function UomListPage() {
               <div className="p-6 space-y-4">
                 {/* Unit Name */}
                 <div>
-                  <label className="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-2">Unit Name *</label>
+                  <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">Unit Name *</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    placeholder="E.g. Kilogram, Litre, Bag"
-                    className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border ${formErrors.name ? "border-red-500" : "border-gray-100 dark:border-gray-800"} rounded-md text-xs font-bold outline-none focus:border-primary-500 transition-all`}
+                    placeholder="E.g. Kilogram, Litre, Bag, Piece"
+                    className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border ${formErrors.name ? "border-red-500" : "border-gray-200 dark:border-gray-800"} rounded-md text-sm outline-none focus:border-primary-500 transition-all`}
                   />
                   {formErrors.name && (
-                    <span className="text-[10px] text-red-500 font-bold mt-1 block">{formErrors.name}</span>
+                    <span className="text-xs text-red-500 font-medium mt-1 block">{formErrors.name}</span>
                   )}
                 </div>
 
                 {/* Unit Code */}
                 <div>
-                  <label className="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-2">Unit Code *</label>
+                  <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">Unit Code *</label>
                   <input
                     type="text"
                     name="code"
                     value={formData.code}
                     onChange={handleInputChange}
                     placeholder="E.g. kg, ltr, bag, pcs"
-                    className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border ${formErrors.code ? "border-red-500" : "border-gray-100 dark:border-gray-800"} rounded-md text-xs font-bold outline-none focus:border-primary-500 transition-all`}
+                    className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border ${formErrors.code ? "border-red-500" : "border-gray-200 dark:border-gray-800"} rounded-md text-sm outline-none focus:border-primary-500 transition-all`}
                   />
                   {formErrors.code && (
-                    <span className="text-[10px] text-red-500 font-bold mt-1 block">{formErrors.code}</span>
+                    <span className="text-xs text-red-500 font-medium mt-1 block">{formErrors.code}</span>
                   )}
                 </div>
 
                 {/* Active Checkbox */}
-                <div className="flex items-center gap-3 bg-gray-50 dark:bg-gray-800/30 p-4 rounded-md border border-gray-100/50 dark:border-gray-800/50">
+                <div className="flex items-center gap-3 bg-gray-50 dark:bg-gray-800/30 p-4 rounded-md border border-gray-200 dark:border-gray-800">
                   <input
                     type="checkbox"
                     id="is_active"
@@ -383,27 +383,27 @@ export default function UomListPage() {
                     className="w-4 h-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500 cursor-pointer"
                   />
                   <div>
-                    <label htmlFor="is_active" className="text-xs font-black text-gray-900 dark:text-white cursor-pointer select-none">
+                    <label htmlFor="is_active" className="text-sm font-semibold text-gray-900 dark:text-white cursor-pointer select-none">
                       Active Status
                     </label>
-                    <p className="text-[9px] text-gray-400 leading-tight">Available across inventory systems when checked.</p>
+                    <p className="text-xs text-gray-400 leading-tight">Enable this unit for use across products and inventory.</p>
                   </div>
                 </div>
               </div>
 
               {/* Modal Actions */}
-              <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 flex items-center justify-end gap-3">
+              <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-800 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-5 py-2.5 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 border border-gray-200 dark:border-gray-800 text-[10px] uppercase tracking-wider font-extrabold rounded-md transition-colors"
+                  className="px-5 py-2.5 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 border border-gray-200 dark:border-gray-800 text-xs font-bold rounded-md transition-colors"
                 >
                   Discard
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white text-[10px] uppercase tracking-wider font-extrabold rounded-md shadow-lg shadow-primary-500/20 transition-all flex items-center gap-2"
+                  className="px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white text-xs font-bold rounded-md shadow-lg shadow-primary-500/20 transition-all flex items-center gap-2"
                 >
                   {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   {selectedUom ? "Push Changes" : "Save Unit"}
