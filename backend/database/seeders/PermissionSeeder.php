@@ -58,7 +58,9 @@ class PermissionSeeder extends Seeder
         $admin->syncPermissions([
             'users.view', 'users.create', 'users.edit',
             'branches.view', 'branches.create', 'branches.edit',
-            'dashboard.view', 'reports.view'
+            'dashboard.view', 'reports.view',
+            'categories.view', 'categories.create', 'categories.edit', 'categories.delete',
+            'uoms.view', 'uoms.create', 'uoms.edit', 'uoms.delete',
         ]);
 
         $staff = Role::firstOrCreate(['name' => 'Staff', 'guard_name' => 'web']);
