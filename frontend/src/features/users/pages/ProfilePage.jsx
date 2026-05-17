@@ -11,11 +11,17 @@ function cn(...inputs) {
 }
 
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const { user, hasPermission } = useAuth();
   const [activeTab, setActiveTab] = useState("personal");
   const [isEditing, setIsEditing] = useState(false);
 
-  const toggleEdit = () => setIsEditing(!isEditing);
+  const toggleEdit = () => {
+    if (!hasPermission('profile.edit')) {
+      toast.error(<b className="text-[11px] font-black uppercase tracking-widest">You do not have permission to edit profile</b>);
+      return;
+    }
+    setIsEditing(!isEditing);
+  };
 
   const handleSave = () => {
     toast.promise(
@@ -59,7 +65,7 @@ export default function ProfilePage() {
     <div className="pb-10 min-h-screen space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       
       {/* Premium Page Header */}
-      <div className="sticky top-4 z-30 flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-md border border-gray-100/50 dark:border-gray-800/50 shadow-xl shadow-gray-500/5 transition-all mb-8">
+      <div className="sticky top-4 z-20 flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl p-6 rounded-md border border-gray-100/50 dark:border-gray-800/50 shadow-xl shadow-gray-500/5 transition-all mb-8">
         <div className="space-y-1">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded bg-primary-500/10 flex items-center justify-center">
@@ -71,31 +77,33 @@ export default function ProfilePage() {
           <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest leading-none">Security & Preferences Matrix</p>
         </div>
 
-        {!isEditing ? (
-          <button 
-            onClick={toggleEdit}
-            className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-800 text-gray-800 dark:text-white font-black text-[11px] uppercase tracking-[0.2em] rounded-md shadow-sm hover:shadow-2xl hover:shadow-primary-500/5 transition-all duration-300 active:scale-95"
-          >
-            <Edit2 className="w-4 h-4 text-primary-500" />
-            Modify Profile
-          </button>
-        ) : (
-          <div className="flex items-center gap-4">
-             <button 
-              onClick={handleCancel}
-              className="flex items-center gap-3 px-8 py-4 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-black text-[11px] uppercase tracking-[0.2em] rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 active:scale-95"
-            >
-              <X className="w-4 h-4" />
-              Discard
-            </button>
+        {hasPermission('profile.edit') && (
+          !isEditing ? (
             <button 
-              onClick={handleSave}
-              className="flex items-center gap-3 px-8 py-4 bg-primary-500 text-white font-black text-[11px] uppercase tracking-[0.2em] rounded-md shadow-2xl shadow-primary-500/20 hover:bg-primary-600 transition-all active:scale-95"
+              onClick={toggleEdit}
+              className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-800 text-gray-800 dark:text-white font-black text-[11px] uppercase tracking-[0.2em] rounded-md shadow-sm hover:shadow-2xl hover:shadow-primary-500/5 transition-all duration-300 active:scale-95"
             >
-              <Save className="w-4 h-4" />
-              Push Changes
+              <Edit2 className="w-4 h-4 text-primary-500" />
+              Modify Profile
             </button>
-          </div>
+          ) : (
+            <div className="flex items-center gap-4">
+               <button 
+                onClick={handleCancel}
+                className="flex items-center gap-3 px-8 py-4 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-black text-[11px] uppercase tracking-[0.2em] rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 active:scale-95"
+              >
+                <X className="w-4 h-4" />
+                Discard
+              </button>
+              <button 
+                onClick={handleSave}
+                className="flex items-center gap-3 px-8 py-4 bg-primary-500 text-white font-black text-[11px] uppercase tracking-[0.2em] rounded-md shadow-2xl shadow-primary-500/20 hover:bg-primary-600 transition-all active:scale-95"
+              >
+                <Save className="w-4 h-4" />
+                Push Changes
+              </button>
+            </div>
+          )
         )}
       </div>
 

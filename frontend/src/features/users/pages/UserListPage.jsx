@@ -135,7 +135,7 @@ export default function UserListPage() {
       
       {/* Premium Sticky Header with Integrated Search */}
       <div className="sticky top-4 z-20 flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl p-6 rounded-md border border-gray-100/50 dark:border-gray-800/50 shadow-xl shadow-gray-500/5 transition-all mb-8">
-          <div className="space-y-1 flex-shrink-0">
+          <div className="space-y-1 shrink-0">
               <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 rounded bg-primary-500/10 flex items-center justify-center">
                       <Users className="w-5 h-5 text-primary-500" />
