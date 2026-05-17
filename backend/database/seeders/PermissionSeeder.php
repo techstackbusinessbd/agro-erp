@@ -32,6 +32,10 @@ class PermissionSeeder extends Seeder
             'System Settings' => [
                 'settings.manage',
             ],
+            'Master Data' => [
+                'categories.view', 'categories.create', 'categories.edit', 'categories.delete',
+                'uoms.view', 'uoms.create', 'uoms.edit', 'uoms.delete',
+            ],
             'Manage Permission' => [
                 'permission.manage',
             ],

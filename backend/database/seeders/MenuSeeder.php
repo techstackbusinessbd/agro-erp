@@ -77,6 +77,36 @@ class MenuSeeder extends Seeder
             ]
         );
 
+        // 3. Master Data Menu
+        $masterData = Menu::updateOrCreate(
+            ['label' => 'Master Data'],
+            [
+                'icon' => 'Database',
+                'order' => 5,
+                'permission' => 'categories.view',
+            ]
+        );
+
+        Menu::updateOrCreate(
+            ['label' => 'Categories', 'path' => '/categories'],
+            [
+                'icon' => 'FolderOpen',
+                'parent_id' => $masterData->id,
+                'order' => 1,
+                'permission' => 'categories.view',
+            ]
+        );
+
+        Menu::updateOrCreate(
+            ['label' => 'Units (UOM)', 'path' => '/uoms'],
+            [
+                'icon' => 'Ruler',
+                'parent_id' => $masterData->id,
+                'order' => 2,
+                'permission' => 'uoms.view',
+            ]
+        );
+
         // Nested Example (2nd Level)
         $settings = Menu::updateOrCreate(
             ['label' => 'Settings'],

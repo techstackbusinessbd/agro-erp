@@ -25,6 +25,14 @@ class AppServiceProvider extends ServiceProvider
             \App\Modules\Core\Interfaces\UserRepositoryInterface::class,
             \App\Modules\Core\Repositories\UserRepository::class
         );
+        $this->app->bind(
+            \App\Modules\MasterData\Interfaces\UomRepositoryInterface::class,
+            \App\Modules\MasterData\Repositories\UomRepository::class
+        );
+        $this->app->bind(
+            \App\Modules\MasterData\Interfaces\CategoryRepositoryInterface::class,
+            \App\Modules\MasterData\Repositories\CategoryRepository::class
+        );
     }
 
     /**

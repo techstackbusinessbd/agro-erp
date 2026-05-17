@@ -10,6 +10,8 @@ import ProfilePage from '../features/users/pages/ProfilePage';
 import UserListPage from '../features/users/pages/UserListPage';
 import RoleListPage from '../features/users/pages/RoleListPage';
 import PermissionListPage from '../features/users/pages/PermissionListPage';
+import CategoryListPage from '../features/master-data/pages/CategoryListPage';
+import UomListPage from '../features/master-data/pages/UomListPage';
 
 import UnauthorizedPage from '../components/common/UnauthorizedPage';
 
@@ -42,6 +44,14 @@ export default function AppRoutes() {
 
                     <Route element={<ProtectedRoute permission="permission.manage" />}>
                         <Route path="/permissions" element={<PermissionListPage />} />
+                    </Route>
+
+                    <Route element={<ProtectedRoute permission="categories.view" />}>
+                        <Route path="/categories" element={<CategoryListPage />} />
+                    </Route>
+
+                    <Route element={<ProtectedRoute permission="uoms.view" />}>
+                        <Route path="/uoms" element={<UomListPage />} />
                     </Route>
                 </Route>
             </Route>

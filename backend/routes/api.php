@@ -16,6 +16,9 @@ require base_path('app/Modules/Auth/routes/api.php');
 // ২. Core Module
 require base_path('app/Modules/Core/routes/api.php');
 
+// ৩. Master Data Module
+require base_path('app/Modules/MasterData/routes/api.php');
+
 // ২. HR Module (ভবিষ্যতের জন্য উদাহরণ)
 // require base_path('app/Modules/HR/routes/api.php');
 
