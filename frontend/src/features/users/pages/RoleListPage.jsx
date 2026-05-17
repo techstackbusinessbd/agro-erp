@@ -113,7 +113,7 @@ export default function RoleListPage() {
             </span>
           </div>
           <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">
-            Access Roles
+            Roles & Permissions
           </h1>
           <p className="text-[12px] font-bold text-gray-400 uppercase tracking-widest leading-none">
             Security Permissions
@@ -151,7 +151,7 @@ export default function RoleListPage() {
               className="flex items-center gap-3 px-6 py-4 bg-primary-500 hover:bg-primary-600 text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-md shadow-2xl shadow-primary-500/20 transition-all active:scale-95 group"
             >
               <Plus className="w-4 h-4 transition-transform group-hover:rotate-90" />
-              Define Role
+              Add Role
             </button>
           )}
         </div>
@@ -199,6 +199,7 @@ export default function RoleListPage() {
                     {hasPermission("roles.edit") && (
                       <button
                         onClick={() => handleEditRole(role)}
+                        title="Edit Role"
                         className="p-2 text-gray-400 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-500/10 rounded transition-all"
                       >
                         <Edit2 className="w-4 h-4" />
@@ -207,6 +208,7 @@ export default function RoleListPage() {
                     {hasPermission("roles.delete") && (
                       <button
                         onClick={() => handleDelete(role.id)}
+                        title="Delete Role"
                         className="p-2 text-gray-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded transition-all"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -220,7 +222,7 @@ export default function RoleListPage() {
                 </h3>
                 <div className="flex items-center gap-2 text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6">
                   <Lock className="w-3.5 h-3.5 text-amber-500" />
-                  <span>{role.permissions?.length || 0} Points Assigned</span>
+                  <span>{role.permissions?.length || 0} Permissions Assigned</span>
                 </div>
 
                 <div className="flex flex-wrap gap-2 mb-2">
@@ -243,7 +245,7 @@ export default function RoleListPage() {
               <div className="px-6 py-4 bg-gray-50/50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between group-hover/card:bg-primary-500/5 transition-all">
                 <div className="flex items-center gap-2 text-[11px] font-black text-gray-400 uppercase tracking-[0.2em]">
                   <Users className="w-4 h-4" />
-                  <span>Security Role</span>
+                  <span>Role Security</span>
                 </div>
                 {hasPermission("roles.edit") && (
                   <button

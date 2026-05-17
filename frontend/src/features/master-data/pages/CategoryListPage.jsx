@@ -121,7 +121,7 @@ export default function CategoryListPage() {
       if (selectedCategory) {
         // Update operation
         const response = await masterDataApi.updateCategory(selectedCategory.id, formData);
-        if (response.data?.status === "Success" || response.status === 200) {
+        if (response.status >= 200 && response.status < 300) {
           toast.success("Category updated successfully");
           fetchCategories();
           handleCloseModal();
@@ -129,7 +129,7 @@ export default function CategoryListPage() {
       } else {
         // Create operation
         const response = await masterDataApi.createCategory(formData);
-        if (response.status === 201 || response.data?.status === "Success") {
+        if (response.status >= 200 && response.status < 300) {
           toast.success("Category created successfully");
           fetchCategories();
           handleCloseModal();
@@ -168,11 +168,21 @@ export default function CategoryListPage() {
           );
           fetchCategories();
         } catch (error) {
-          Swal.fire(
-            'Error!',
-            error.response?.data?.message || 'Failed to delete category.',
-            'error'
-          );
+          if (error.response?.status === 404) {
+            // Graceful handling for duplicate clicks
+            Swal.fire(
+              'Deleted!',
+              'Category has been deleted.',
+              'success'
+            );
+            fetchCategories();
+          } else {
+            Swal.fire(
+              'Error!',
+              error.response?.data?.message || 'Failed to delete category.',
+              'error'
+            );
+          }
         }
       }
     });
@@ -189,7 +199,7 @@ export default function CategoryListPage() {
             </div>
             <span className="text-xs font-semibold text-primary-600 dark:text-primary-400 tracking-wider">Master Data Management</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Category Directory</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Categories Directory</h1>
           <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Manage and classify your items for seamless inventory control.</p>
         </div>
 
@@ -430,7 +440,7 @@ export default function CategoryListPage() {
                   className="px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white text-xs font-bold rounded-md shadow-lg shadow-primary-500/20 transition-all flex items-center gap-2"
                 >
                   {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-                  {selectedCategory ? "Push Changes" : "Save Category"}
+                  {selectedCategory ? "Save Changes" : "Save Category"}
                 </button>
               </div>
             </form>

@@ -142,7 +142,7 @@ export default function UserListPage() {
                   </div>
                   <span className="text-[10px] font-extrabold text-primary-500 uppercase tracking-[0.2em]">Enterprise System</span>
               </div>
-              <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">User Matrix</h1>
+              <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Users Directory</h1>
               <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest leading-none">Identity & Access Management</p>
           </div>
 
@@ -280,7 +280,7 @@ export default function UserListPage() {
                             {hasPermission('permission.manage') && (
                               <button
                                 onClick={() => handleManagePermissions(user)}
-                                title="Access Matrix"
+                                title="Manage Direct Permissions"
                                 className="p-2 text-gray-400 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-500/10 rounded-md transition-all border border-transparent hover:border-amber-500/20"
                               >
                                 <ShieldCheck className="w-4 h-4" />
@@ -289,7 +289,7 @@ export default function UserListPage() {
                             {hasPermission('users.edit') && (
                               <button
                                 onClick={() => handleEditUser(user)}
-                                title="Edit Identity"
+                                title="Edit User Details"
                                 className="p-2 text-gray-400 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-500/10 rounded-md transition-all border border-transparent hover:border-primary-500/20"
                               >
                                 <Edit2 className="w-4 h-4" />
@@ -298,7 +298,7 @@ export default function UserListPage() {
                             {hasPermission('users.edit') && (
                               <button
                                 onClick={() => handleChangePassword(user)}
-                                title="Reset Shield"
+                                title="Reset User Password"
                                 className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-600/10 rounded-md transition-all border border-transparent hover:border-amber-600/20"
                               >
                                 <Lock className="w-4 h-4" />
@@ -307,7 +307,7 @@ export default function UserListPage() {
                             {hasPermission('users.delete') && (
                               <button
                                 onClick={() => handleDelete(user.id)}
-                                title="Purge Record"
+                                title="Delete User"
                                 className="p-2 text-gray-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-md transition-all border border-transparent hover:border-rose-500/20"
                               >
                                 <Trash2 className="w-4 h-4" />
@@ -356,7 +356,7 @@ export default function UserListPage() {
                  ))}
                </div>
                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                  Showing <span className="text-gray-800 dark:text-white">{users.length}</span> of <span className="text-gray-800 dark:text-white">{meta.total}</span> Personnel
+                  Showing <span className="text-gray-800 dark:text-white">{users.length}</span> of <span className="text-gray-800 dark:text-white">{meta.total}</span> Users
                </p>
             </div>
 

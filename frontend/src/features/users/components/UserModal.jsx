@@ -126,7 +126,7 @@ export default function UserModal({ isOpen, onClose, user, onSuccess }) {
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/50">
           <div className="flex flex-col">
             <h3 className="text-lg font-black text-gray-800 dark:text-white uppercase tracking-tight">
-              {user ? "Update Profile" : "Register Personnel"}
+              {user ? "Update User Details" : "Register Personnel"}
             </h3>
             <span className="text-[10px] text-primary-500 font-black uppercase tracking-[0.2em]">
               User Management
@@ -366,7 +366,7 @@ export default function UserModal({ isOpen, onClose, user, onSuccess }) {
               ) : (
                 <CheckCircle className="w-3.5 h-3.5" />
               )}
-              {user ? "Update Profile" : "Save Personnel"}
+              {user ? "Update User" : "Save Personnel"}
             </button>
           </div>
         </form>

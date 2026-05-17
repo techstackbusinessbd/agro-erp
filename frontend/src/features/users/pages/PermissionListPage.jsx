@@ -314,7 +314,7 @@ export default function PermissionListPage() {
                     </div>
                     <span className="text-[10px] font-extrabold text-primary-500 uppercase tracking-[0.2em]">Enterprise System</span>
                 </div>
-                <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">System Permissions</h1>
+                <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Permissions Directory</h1>
                 <p className="text-[12px] font-bold text-gray-400 uppercase tracking-widest leading-none">Security & Access Management</p>
             </div>
 
@@ -339,7 +339,7 @@ export default function PermissionListPage() {
                         <p className="text-2xl font-black text-gray-900 dark:text-white leading-none mt-1">{totalGroups}</p>
                     </div>
                     <div className="text-right">
-                        <p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em]">Actions</p>
+                        <p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em]">Permissions</p>
                         <p className="text-2xl font-black text-gray-900 dark:text-white leading-none mt-1">{totalPerms}</p>
                     </div>
                 </div>
@@ -397,7 +397,7 @@ export default function PermissionListPage() {
                             </div>
                             <div>
                                 <h3 className="text-sm font-black text-gray-800 dark:text-white uppercase tracking-widest">{group}</h3>
-                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{filteredGroupPerms.length} Points Available</p>
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{filteredGroupPerms.length} Permissions Available</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
@@ -512,7 +512,7 @@ export default function PermissionListPage() {
             <div className="px-8 py-6 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between bg-gray-50/50 dark:bg-gray-800/50">
               <div className="flex flex-col">
                 <h3 className="text-xl font-black text-gray-900 dark:text-white tracking-tight">
-                  {selectedPermission ? 'Modify Point' : 'Deploy Module'}
+                  {selectedPermission ? 'Edit Permission' : 'Create Permissions'}
                 </h3>
                 <span className="text-[10px] text-primary-500 font-black uppercase tracking-[0.2em]">RBAC Configuration</span>
               </div>
@@ -586,7 +586,7 @@ export default function PermissionListPage() {
                   </div>
 
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Action Matrix</label>
+                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Permissions Action Matrix</label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {commonActions.map(action => {
                         const isSelected = formData.actions.includes(action);
@@ -630,7 +630,7 @@ export default function PermissionListPage() {
               )}
 
               <div className="p-5 bg-primary-500/5 dark:bg-primary-500/10 border border-primary-500/10 dark:border-primary-500/20 rounded-2xl space-y-3">
-                <p className="text-[9px] font-black text-primary-500 uppercase tracking-[0.3em]">Deployment Preview</p>
+                <p className="text-[9px] font-black text-primary-500 uppercase tracking-[0.3em]">Permissions Preview</p>
                 <div className="flex flex-wrap gap-2">
                   {formData.is_manual ? (
                     <span className="px-3 py-1.5 bg-white dark:bg-gray-900 border border-primary-500/20 rounded text-xs font-mono font-bold text-primary-600 dark:text-primary-400 shadow-sm">
@@ -644,7 +644,7 @@ export default function PermissionListPage() {
                         </span>
                       ))
                     ) : (
-                      <span className="text-xs text-gray-400 italic font-medium">No actions selected for deployment</span>
+                      <span className="text-xs text-gray-400 italic font-medium">No actions selected for creation</span>
                     )
                   )}
                 </div>
@@ -664,7 +664,7 @@ export default function PermissionListPage() {
                   className="px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em] bg-primary-500 hover:bg-primary-600 text-white rounded-2xl transition-all flex items-center gap-3 shadow-2xl shadow-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
                 >
                   {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-                  {selectedPermission ? 'Save Deployment' : `Deploy ${formData.is_manual ? 1 : formData.actions.length} Points`}
+                  {selectedPermission ? 'Save Permission' : `Create ${formData.is_manual ? 1 : formData.actions.length} Permissions`}
                 </button>
               </div>
             </form>

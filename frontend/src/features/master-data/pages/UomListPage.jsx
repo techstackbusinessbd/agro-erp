@@ -120,7 +120,7 @@ export default function UomListPage() {
       if (selectedUom) {
         // Update operation
         const response = await masterDataApi.updateUom(selectedUom.id, formData);
-        if (response.data?.status === "Success" || response.status === 200) {
+        if (response.status >= 200 && response.status < 300) {
           toast.success("Unit of Measurement updated successfully");
           fetchUoms();
           handleCloseModal();
@@ -128,7 +128,7 @@ export default function UomListPage() {
       } else {
         // Create operation
         const response = await masterDataApi.createUom(formData);
-        if (response.status === 201 || response.data?.status === "Success") {
+        if (response.status >= 200 && response.status < 300) {
           toast.success("Unit of Measurement created successfully");
           fetchUoms();
           handleCloseModal();
@@ -167,11 +167,21 @@ export default function UomListPage() {
           );
           fetchUoms();
         } catch (error) {
-          Swal.fire(
-            'Error!',
-            error.response?.data?.message || 'Failed to delete Unit of Measurement.',
-            'error'
-          );
+          if (error.response?.status === 404) {
+            // Graceful handling for duplicate clicks
+            Swal.fire(
+              'Deleted!',
+              'Unit of Measurement has been deleted.',
+              'success'
+            );
+            fetchUoms();
+          } else {
+            Swal.fire(
+              'Error!',
+              error.response?.data?.message || 'Failed to delete Unit of Measurement.',
+              'error'
+            );
+          }
         }
       }
     });
@@ -406,7 +416,7 @@ export default function UomListPage() {
                   className="px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white text-xs font-bold rounded-md shadow-lg shadow-primary-500/20 transition-all flex items-center gap-2"
                 >
                   {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-                  {selectedUom ? "Push Changes" : "Save Unit"}
+                  {selectedUom ? "Save Changes" : "Save Unit"}
                 </button>
               </div>
             </form>
