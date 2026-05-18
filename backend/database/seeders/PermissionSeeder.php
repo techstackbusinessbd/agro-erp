@@ -19,6 +19,7 @@ class PermissionSeeder extends Seeder
             'User Management' => [
                 'users.view', 'users.create', 'users.edit', 'users.delete',
                 'roles.view', 'roles.create', 'roles.edit', 'roles.delete',
+                'profile.edit',
             ],
             'Company Management' => [
                 'companies.view', 'companies.create', 'companies.edit', 'companies.delete',
@@ -35,9 +36,17 @@ class PermissionSeeder extends Seeder
             'Master Data' => [
                 'categories.view', 'categories.create', 'categories.edit', 'categories.delete',
                 'uoms.view', 'uoms.create', 'uoms.edit', 'uoms.delete',
+                'products.view', 'products.create', 'products.edit', 'products.delete',
+            ],
+            'Warehouse Management' => [
+                'warehouses.view', 'warehouses.create', 'warehouses.edit', 'warehouses.delete',
+                'territories.view', 'territories.create', 'territories.edit', 'territories.delete',
             ],
             'Manage Permission' => [
                 'permission.manage',
+            ],
+            'Security & Audits' => [
+                'audit.view',
             ],
         ];
 
@@ -61,10 +70,20 @@ class PermissionSeeder extends Seeder
             'dashboard.view', 'reports.view',
             'categories.view', 'categories.create', 'categories.edit', 'categories.delete',
             'uoms.view', 'uoms.create', 'uoms.edit', 'uoms.delete',
+            'products.view', 'products.create', 'products.edit', 'products.delete',
+            'warehouses.view', 'warehouses.create', 'warehouses.edit', 'warehouses.delete',
+            'territories.view', 'territories.create', 'territories.edit', 'territories.delete',
+            'audit.view',
         ]);
 
         $staff = Role::firstOrCreate(['name' => 'Staff', 'guard_name' => 'web']);
-        $staff->syncPermissions(['dashboard.view', 'users.view']);
+        $staff->syncPermissions([
+            'dashboard.view',
+            'users.view',
+            'products.view',
+            'warehouses.view',
+            'territories.view'
+        ]);
 
         // Assign Role to existing Admin User
         $user = User::where('username', 'superadmin')->first();

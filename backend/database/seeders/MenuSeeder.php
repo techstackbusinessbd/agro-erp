@@ -77,6 +77,16 @@ class MenuSeeder extends Seeder
             ]
         );
 
+        Menu::updateOrCreate(
+            ['label' => 'Security Audit Logs', 'path' => '/audits'],
+            [
+                'icon' => 'ClipboardList',
+                'parent_id' => $userMgmt->id,
+                'order' => 5,
+                'permission' => 'audit.view',
+            ]
+        );
+
         // 3. Master Data Menu
         $masterData = Menu::updateOrCreate(
             ['label' => 'Master Data'],
@@ -104,6 +114,76 @@ class MenuSeeder extends Seeder
                 'parent_id' => $masterData->id,
                 'order' => 2,
                 'permission' => 'uoms.view',
+            ]
+        );
+
+        Menu::updateOrCreate(
+            ['label' => 'Products', 'path' => '/products'],
+            [
+                'icon' => 'Package',
+                'parent_id' => $masterData->id,
+                'order' => 3,
+                'permission' => 'products.view',
+            ]
+        );
+
+        // 4. Warehouse & Territory Menu
+        $warehouseMenu = Menu::updateOrCreate(
+            ['label' => 'Warehouse & Territory'],
+            [
+                'icon' => 'Warehouse',
+                'order' => 6,
+                'permission' => 'warehouses.view',
+            ]
+        );
+
+        Menu::updateOrCreate(
+            ['label' => 'Warehouses', 'path' => '/warehouses'],
+            [
+                'icon' => 'Building2',
+                'parent_id' => $warehouseMenu->id,
+                'order' => 1,
+                'permission' => 'warehouses.view',
+            ]
+        );
+
+        Menu::updateOrCreate(
+            ['label' => 'Depots', 'path' => '/depots'],
+            [
+                'icon' => 'Store',
+                'parent_id' => $warehouseMenu->id,
+                'order' => 2,
+                'permission' => 'warehouses.view',
+            ]
+        );
+
+        Menu::updateOrCreate(
+            ['label' => 'Territory Management', 'path' => '/territories'],
+            [
+                'icon' => 'Map',
+                'parent_id' => $warehouseMenu->id,
+                'order' => 3,
+                'permission' => 'territories.view',
+            ]
+        );
+
+        Menu::updateOrCreate(
+            ['label' => 'Inventory Balances', 'path' => '/stocks'],
+            [
+                'icon' => 'Boxes',
+                'parent_id' => $warehouseMenu->id,
+                'order' => 4,
+                'permission' => 'warehouses.view',
+            ]
+        );
+
+        Menu::updateOrCreate(
+            ['label' => 'Stock Transfers', 'path' => '/transfers'],
+            [
+                'icon' => 'Truck',
+                'parent_id' => $warehouseMenu->id,
+                'order' => 5,
+                'permission' => 'warehouses.view',
             ]
         );
 

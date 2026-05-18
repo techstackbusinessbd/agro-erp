@@ -366,7 +366,7 @@ export default function UserModal({ isOpen, onClose, user, onSuccess }) {
               ) : (
                 <CheckCircle className="w-3.5 h-3.5" />
               )}
-              {user ? "Update User" : "Save Personnel"}
+              {user ? "Save Changes" : "Save User"}
             </button>
           </div>
         </form>

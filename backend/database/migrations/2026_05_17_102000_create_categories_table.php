@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             // Primary Key as UUID
             $table->uuid('id')->primary();
+            $table->uuid('parent_id')->nullable();
 
             // Category Details
             $table->string('name');
@@ -24,6 +25,10 @@ return new class extends Migration
             // System fields
             $table->softDeletes(); // Soft deletes এনাবল করার জন্য
             $table->timestamps();
+        });
+
+        Schema::table('categories', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('set null');
         });
     }
 

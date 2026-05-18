@@ -15,10 +15,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\Auditable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuids, SoftDeletes, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasUuids, SoftDeletes, HasRoles, Auditable;
 
     protected $fillable = [
         'company_id',

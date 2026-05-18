@@ -656,7 +656,7 @@ export default function PermissionListPage() {
                   onClick={() => setIsModalOpen(false)}
                   className="px-6 py-3 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-all"
                 >
-                  Discard
+                  Cancel
                 </button>
                 <button 
                   type="submit"
@@ -664,7 +664,7 @@ export default function PermissionListPage() {
                   className="px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em] bg-primary-500 hover:bg-primary-600 text-white rounded-2xl transition-all flex items-center gap-3 shadow-2xl shadow-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
                 >
                   {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-                  {selectedPermission ? 'Save Permission' : `Create ${formData.is_manual ? 1 : formData.actions.length} Permissions`}
+                  {selectedPermission ? 'Save Changes' : `Create ${formData.is_manual ? 1 : formData.actions.length} Permissions`}
                 </button>
               </div>
             </form>

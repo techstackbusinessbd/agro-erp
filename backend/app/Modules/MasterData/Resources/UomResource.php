@@ -10,12 +10,16 @@ class UomResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'code'       => $this->code,
-            'is_active'  => (bool) $this->is_active,
-            'created_at' => $this->created_at?->toIso8601String(),
-            'updated_at' => $this->updated_at?->toIso8601String(),
+            'id'                => $this->id,
+            'name'              => $this->name,
+            'code'              => $this->code,
+            'is_base'           => (bool) $this->is_base,
+            'parent_id'         => $this->parent_id,
+            'parent_name'       => $this->parent?->name,
+            'conversion_factor' => (float) $this->conversion_factor,
+            'is_active'         => (bool) $this->is_active,
+            'created_at'        => $this->created_at?->toIso8601String(),
+            'updated_at'        => $this->updated_at?->toIso8601String(),
         ];
     }
 }

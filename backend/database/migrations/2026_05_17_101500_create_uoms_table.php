@@ -18,11 +18,18 @@ return new class extends Migration
             // UOM Details
             $table->string('name');
             $table->string('code')->unique(); // UOM কোড যেমন kg, ltr, bag ইত্যাদি
+            $table->boolean('is_base')->default(false);
+            $table->uuid('parent_id')->nullable();
+            $table->decimal('conversion_factor', 12, 4)->default(1.0000);
             $table->boolean('is_active')->default(true);
 
             // System fields
             $table->softDeletes(); // Soft deletes এনাবল করার জন্য
             $table->timestamps();
+        });
+
+        Schema::table('uoms', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('uoms')->onDelete('set null');
         });
     }
 

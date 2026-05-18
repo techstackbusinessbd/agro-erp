@@ -31,6 +31,14 @@ class AuthService
         // Log the user in to the web session for Sanctum SPA
         \Illuminate\Support\Facades\Auth::guard('web')->login($user);
 
+        // Record to Login History for audit audit trail
+        \App\Models\LoginHistory::create([
+            'user_id' => $user->id,
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+            'logged_in_at' => now(),
+        ]);
+
         // Optional: Generate Sanctum Token if you need API tokens for external apps
         $token = $user->createToken('auth_token')->plainTextToken;
 

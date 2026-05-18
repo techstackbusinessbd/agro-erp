@@ -28,6 +28,9 @@ export default function UomListPage() {
   const [formData, setFormData] = useState({
     name: "",
     code: "",
+    is_base: false,
+    parent_id: "",
+    conversion_factor: 1,
     is_active: true
   });
   const [formErrors, setFormErrors] = useState({});
@@ -72,6 +75,9 @@ export default function UomListPage() {
       setFormData({
         name: uom.name,
         code: uom.code,
+        is_base: uom.is_base,
+        parent_id: uom.parent_id || "",
+        conversion_factor: uom.conversion_factor || 1,
         is_active: uom.is_active
       });
     } else {
@@ -79,6 +85,9 @@ export default function UomListPage() {
       setFormData({
         name: "",
         code: "",
+        is_base: false,
+        parent_id: "",
+        conversion_factor: 1,
         is_active: true
       });
     }
@@ -106,6 +115,14 @@ export default function UomListPage() {
     }
     if (!formData.code.trim()) {
       errors.code = "Unit code is required";
+    }
+    if (!formData.is_base) {
+      if (!formData.parent_id) {
+        errors.parent_id = "Base unit selection is required";
+      }
+      if (!formData.conversion_factor || parseFloat(formData.conversion_factor) <= 0) {
+        errors.conversion_factor = "A positive conversion factor is required";
+      }
     }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -270,6 +287,15 @@ export default function UomListPage() {
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-gray-900 dark:text-white">{uom.name}</p>
+                          {uom.is_base ? (
+                            <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider block mt-0.5">
+                              Base Unit
+                            </span>
+                          ) : (
+                            <span className="text-[10px] text-primary-500 font-semibold block mt-0.5">
+                              1 {uom.code} = {Number(uom.conversion_factor)} {uom.parent_name || 'Base Unit'}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </td>
@@ -382,6 +408,69 @@ export default function UomListPage() {
                   )}
                 </div>
 
+                {/* Is Base Unit Toggle */}
+                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/30 rounded-md border border-gray-200 dark:border-gray-800">
+                  <div>
+                    <label className="text-sm font-semibold text-gray-900 dark:text-white select-none">
+                      Is Base Unit?
+                    </label>
+                    <p className="text-xs text-gray-400 leading-tight">Define this as a base unit for others to reference.</p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    name="is_base"
+                    checked={formData.is_base}
+                    onChange={handleInputChange}
+                    className="w-4 h-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500 cursor-pointer"
+                  />
+                </div>
+
+                {/* Conditional Conversion Fields */}
+                {!formData.is_base && (
+                  <div className="space-y-4 p-4 bg-primary-50/50 dark:bg-primary-500/5 rounded-md border border-gray-200 dark:border-gray-800/50 animate-in fade-in duration-300">
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">Base Unit *</label>
+                      <select
+                        name="parent_id"
+                        value={formData.parent_id}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-800 rounded-md text-sm outline-none focus:border-primary-500 transition-all cursor-pointer font-semibold text-gray-800 dark:text-white"
+                      >
+                        <option value="">Select Base Unit</option>
+                        {uoms
+                          .filter((u) => u.is_base && (!selectedUom || u.id !== selectedUom.id))
+                          .map((u) => (
+                            <option key={u.id} value={u.id}>
+                              {u.name} ({u.code})
+                            </option>
+                          ))}
+                      </select>
+                      {formErrors.parent_id && (
+                        <span className="text-xs text-red-500 font-medium mt-1 block">{formErrors.parent_id}</span>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">Conversion Factor *</label>
+                      <input
+                        type="number"
+                        step="any"
+                        name="conversion_factor"
+                        value={formData.conversion_factor}
+                        onChange={handleInputChange}
+                        placeholder="E.g. 0.001 (if Gram, base is kg)"
+                        className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border ${formErrors.conversion_factor ? "border-red-500" : "border-gray-200 dark:border-gray-800"} rounded-md text-sm outline-none focus:border-primary-500 transition-all font-semibold text-gray-800 dark:text-white`}
+                      />
+                      <span className="text-[11px] text-gray-400 mt-1 block leading-tight">
+                        How many Base Units fit into 1 of this unit.
+                      </span>
+                      {formErrors.conversion_factor && (
+                        <span className="text-xs text-red-500 font-medium mt-1 block">{formErrors.conversion_factor}</span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 {/* Active Checkbox */}
                 <div className="flex items-center gap-3 bg-gray-50 dark:bg-gray-800/30 p-4 rounded-md border border-gray-200 dark:border-gray-800">
                   <input
@@ -408,7 +497,7 @@ export default function UomListPage() {
                   onClick={handleCloseModal}
                   className="px-5 py-2.5 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 border border-gray-200 dark:border-gray-800 text-xs font-bold rounded-md transition-colors"
                 >
-                  Discard
+                  Cancel
                 </button>
                 <button
                   type="submit"

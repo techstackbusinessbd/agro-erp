@@ -93,5 +93,23 @@ class UserController extends Controller
             'User permissions synced successfully.'
         );
     }
+
+    public function dashboardStats(): JsonResponse
+    {
+        return $this->successResponse([
+            'products_count'    => \App\Modules\MasterData\Models\Product::count(),
+            'variants_count'    => \App\Modules\MasterData\Models\ProductVariant::count(),
+            'categories_count'  => \App\Modules\MasterData\Models\Category::count(),
+            'uoms_count'        => \App\Modules\MasterData\Models\Uom::count(),
+            'warehouses_count'  => \App\Modules\Warehouse\Models\Warehouse::where('type', '!=', 'depot')->count(),
+            'depots_count'      => \App\Modules\Warehouse\Models\Warehouse::where('type', 'depot')->count(),
+            'territories_count' => \App\Modules\Warehouse\Models\Territory::count(),
+            'transfers_count'   => \App\Modules\Warehouse\Models\StockTransferOrder::count(),
+            'transit_count'     => \App\Modules\Warehouse\Models\StockTransferOrder::where('status', 'SHIPPED')->count(),
+            'audit_logs_count'  => \App\Models\AuditLog::count(),
+            'users_count'       => \App\Models\User::count(),
+            'roles_count'       => \Spatie\Permission\Models\Role::count(),
+        ], 'Dashboard stats retrieved successfully.');
+    }
 }
 

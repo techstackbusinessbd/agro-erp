@@ -167,7 +167,7 @@ export default function UserListPage() {
                       <p className="text-2xl font-black text-gray-900 dark:text-white leading-none mt-1">{meta?.total || users.length}</p>
                   </div>
               </div>
-              {hasPermission('create_users') && (
+              {hasPermission('users.create') && (
                   <button 
                       onClick={handleAddUser}
                       className="flex items-center gap-3 px-6 py-4 bg-primary-500 hover:bg-primary-600 text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-md shadow-2xl shadow-primary-500/20 transition-all active:scale-95 group"

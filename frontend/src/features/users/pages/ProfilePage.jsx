@@ -93,14 +93,14 @@ export default function ProfilePage() {
                 className="flex items-center gap-3 px-8 py-4 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-black text-[11px] uppercase tracking-[0.2em] rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 active:scale-95"
               >
                 <X className="w-4 h-4" />
-                Discard
+                Cancel
               </button>
               <button 
                 onClick={handleSave}
                 className="flex items-center gap-3 px-8 py-4 bg-primary-500 text-white font-black text-[11px] uppercase tracking-[0.2em] rounded-md shadow-2xl shadow-primary-500/20 hover:bg-primary-600 transition-all active:scale-95"
               >
                 <Save className="w-4 h-4" />
-                Push Changes
+                Save Changes
               </button>
             </div>
           )

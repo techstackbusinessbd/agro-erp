@@ -331,7 +331,7 @@ export default function RoleModal({ isOpen, onClose, role, onSuccess }) {
               className="px-10 py-3 text-[11px] bg-primary-500 hover:bg-primary-600 text-white font-black uppercase tracking-widest rounded-md shadow-xl shadow-primary-500/20 transition-all active:scale-95 flex items-center justify-center gap-2"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-              {role ? 'Update Role' : 'Save Role'}
+              {role ? 'Save Changes' : 'Save Role'}
             </button>
           </div>
         </form>

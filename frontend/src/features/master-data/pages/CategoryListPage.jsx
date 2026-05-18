@@ -26,6 +26,7 @@ export default function CategoryListPage() {
 
   // Form State
   const [formData, setFormData] = useState({
+    parent_id: "",
     name: "",
     slug: "",
     description: "",
@@ -72,6 +73,7 @@ export default function CategoryListPage() {
     if (category) {
       setSelectedCategory(category);
       setFormData({
+        parent_id: category.parent_id || "",
         name: category.name,
         slug: category.slug || "",
         description: category.description || "",
@@ -80,6 +82,7 @@ export default function CategoryListPage() {
     } else {
       setSelectedCategory(null);
       setFormData({
+        parent_id: "",
         name: "",
         slug: "",
         description: "",
@@ -273,6 +276,11 @@ export default function CategoryListPage() {
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-gray-900 dark:text-white">{cat.name}</p>
+                          {cat.parent_name && (
+                            <span className="text-[10px] text-primary-500 font-semibold uppercase tracking-wider block mt-0.5">
+                              Sub-category of: {cat.parent_name}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </td>
@@ -358,6 +366,26 @@ export default function CategoryListPage() {
             {/* Modal Form Body */}
             <form onSubmit={handleFormSubmit}>
               <div className="p-6 space-y-4">
+                {/* Parent Category */}
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">Parent Category</label>
+                  <select
+                    name="parent_id"
+                    value={formData.parent_id}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 rounded-md text-sm outline-none focus:border-primary-500 transition-all cursor-pointer font-semibold text-gray-800 dark:text-white"
+                  >
+                    <option value="">None (Is Root Category)</option>
+                    {categories
+                      .filter((cat) => !selectedCategory || cat.id !== selectedCategory.id)
+                      .map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+
                 {/* Category Name */}
                 <div>
                   <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">Category Name *</label>
@@ -432,7 +460,7 @@ export default function CategoryListPage() {
                   onClick={handleCloseModal}
                   className="px-5 py-2.5 bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 border border-gray-200 dark:border-gray-800 text-xs font-bold rounded-md transition-colors"
                 >
-                  Discard
+                  Cancel
                 </button>
                 <button
                   type="submit"

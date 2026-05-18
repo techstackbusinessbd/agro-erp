@@ -20,6 +20,9 @@ Route::prefix('core')->middleware('auth:sanctum')->group(function () {
     // Branch Routes
     Route::apiResource('branches', BranchController::class)->middleware('permission:settings.manage');
 
+    // Dashboard Stats Route
+    Route::get('dashboard-stats', [UserController::class, 'dashboardStats']);
+
     // User Routes
     Route::get('users', [UserController::class, 'index'])->middleware('permission:users.view');
     Route::post('users', [UserController::class, 'store'])->middleware('permission:users.create');

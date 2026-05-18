@@ -33,6 +33,26 @@ class AppServiceProvider extends ServiceProvider
             \App\Modules\MasterData\Interfaces\CategoryRepositoryInterface::class,
             \App\Modules\MasterData\Repositories\CategoryRepository::class
         );
+        $this->app->bind(
+            \App\Modules\Warehouse\Interfaces\WarehouseRepositoryInterface::class,
+            \App\Modules\Warehouse\Repositories\WarehouseRepository::class
+        );
+        $this->app->bind(
+            \App\Modules\Warehouse\Interfaces\TerritoryRepositoryInterface::class,
+            \App\Modules\Warehouse\Repositories\TerritoryRepository::class
+        );
+        $this->app->bind(
+            \App\Modules\MasterData\Interfaces\ProductRepositoryInterface::class,
+            \App\Modules\MasterData\Repositories\ProductRepository::class
+        );
+        $this->app->bind(
+            \App\Modules\Warehouse\Interfaces\StockRepositoryInterface::class,
+            \App\Modules\Warehouse\Repositories\StockRepository::class
+        );
+        $this->app->bind(
+            \App\Modules\Warehouse\Interfaces\StockTransferRepositoryInterface::class,
+            \App\Modules\Warehouse\Repositories\StockTransferRepository::class
+        );
     }
 
     /**
